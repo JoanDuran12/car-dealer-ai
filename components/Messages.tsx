@@ -1,6 +1,6 @@
 import { Message } from "@/app/page";
 import SubmitButton from "./SubmitButton";
-import { ChevronDownCircle } from "lucide-react";
+import { ChevronUpCircle } from "lucide-react";
 
 interface Props {
   messages: Message[];
@@ -61,11 +61,12 @@ function Messages({ messages }: Props) {
 
         {!messages.length && (
           <div className="flex flex-col space-y-10 flex-1 items-center justify-end pl-6">
-            <p className="text-gray-500 animate-pulse">Start a conversation</p>
-            <ChevronDownCircle
+
+            <ChevronUpCircle
               size={64}
-              className="animate-bounce text-gray-500"
+              className="animate-bounce text-white"
             />
+            <p className="text-white animate-pulse">Start a conversation</p>
           </div>
         )}
 
@@ -75,14 +76,14 @@ function Messages({ messages }: Props) {
               {/* reciever */}
               <div className="pr-48">
                 <p className="message bg-gray-800 rounded-bl-none">
-                  {message.response}
+                  AI: {message.response}
                 </p>
               </div>
 
               {/* sender */}
               <div className="pl-48">
                 <p className="message text-left ml-auto rounded-br-none">
-                  {message.sender}
+                  You: {message.sender}
                 </p>
               </div>
             </div>

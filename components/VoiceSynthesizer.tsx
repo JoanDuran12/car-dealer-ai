@@ -76,11 +76,11 @@ function VoiceSynthesizer({
       {displaySettings && (
         <>
           <div className="w-fit">
-            <p className="text-xs text-gray-500 p-2">Voice:</p>
+            <p className="text-xs text-white-500 p-2">Voice:</p>
             <select
               value={voice?.name}
               onChange={handleVoiceChange}
-              className="flex-1 bg-purple-500 text-white border border-gray-300 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-purple-500 dark:focus:border-purple-500"
+              className="flex-1 bg-white text-black border border-gray-300 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-purple-500 dark:focus:border-purple-500"
             >
               {synth?.getVoices().map((voice) => (
                 <option key={voice.name} value={voice.name}>
@@ -92,7 +92,7 @@ function VoiceSynthesizer({
 
           <div className="flex pb-5">
             <div className="p-2">
-              <p className="text-xs text-gray-500">Pitch:</p>
+              <p className="text-xs text-white-500">Pitch:</p>
               <input
                 type="range"
                 min="0.5"
@@ -100,12 +100,12 @@ function VoiceSynthesizer({
                 step="0.1"
                 value={pitch}
                 onChange={handlePitchChange}
-                className="accent-purple-500"
+                className="accent-white-500"
               />
             </div>
 
             <div className="p-2">
-              <p className="text-xs text-gray-500">Speed:</p>
+              <p className="text-xs text-white-500">Speed:</p>
               <input
                 type="range"
                 min="0.5"
@@ -113,12 +113,12 @@ function VoiceSynthesizer({
                 step="0.1"
                 value={rate}
                 onChange={handleRateChange}
-                className="accent-purple-500"
+                className="accent-white-500"
               />
             </div>
 
             <div className="p-2">
-              <p className="text-xs text-gray-500">Volume:</p>
+              <p className="text-xs text-white-500">Volume:</p>
               <input
                 type="range"
                 min="0"
@@ -126,7 +126,7 @@ function VoiceSynthesizer({
                 step="0.1"
                 value={volume}
                 onChange={handleVolumeChange}
-                className="accent-purple-500"
+                className="accent-white-500"
               />
             </div>
           </div>
