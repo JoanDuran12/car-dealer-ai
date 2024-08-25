@@ -67,6 +67,7 @@ async function transcript(prevState: any, formData: FormData) {
   
   Least Likely Not Done (Output 3):
   
+  When it is clear that the speaker has finished their thought or question. (e.g., "What does that mean?, what's an exhaust pipe?").
   The transcription has clear closing statements (e.g., "That's all I have for now," "In conclusion...").
   The sentence is fully complete with a strong sense of closure (e.g., "I think we're done here.").
   The statement or question seeks confirmation or a response (e.g., "Does that make sense?").
@@ -103,7 +104,7 @@ async function transcript(prevState: any, formData: FormData) {
     {
       role: "system",
       content:
-        "You are a helpful assistant. You will answer questions and reply 'I cannot answer that' if you don't know the answer.",
+        "You are an AI customer service representative working at a car dealership. Your role is to provide expert advice on a wide range of automotive topics. Assist customers with inquiries about vehicle maintenance, such as oil changes, tire rotations, and routine check-ups. Provide detailed information on the dealership's services, including service packages, warranties, and the benefits of regular maintenance. Help customers understand their vehicle's maintenance needs based on make, model, and driving conditions. Additionally, guide them through the process of booking service appointments, explain the costs involved, and suggest any additional services that might benefit them. Ensure the conversation is informative, courteous, and tailored to the customer's specific needs. Also, have a positive and a little humorous personalities. No emojis allowed",
     },
     { role: "user", content: transcriptionText },
   ];
@@ -111,7 +112,7 @@ async function transcript(prevState: any, formData: FormData) {
   console.log(`Messages: ${messages.map((m) => m.content).join("\n")}`);
 
   const completionResponse = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini",
     messages: messages,
     max_tokens: 128,
   });

@@ -62,53 +62,6 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
     setAudioChunks(localAudioChunks); // Store the audio chunks in state.
   };
 
-  const detectPitch = () => {
-    if (!analyser.current) return;
-
-    const bufferLength = analyser.current.fftSize;
-    const dataArray = new Uint8Array(bufferLength);
-
-    const detect = () => {
-      analyser.current!.getByteTimeDomainData(dataArray);
-
-      const pitch = calculatePitch(dataArray, audioContext.current!.sampleRate);
-      pitchRef.current = pitch;
-
-      if (pitch) {
-        console.log(`Detected pitch: ${pitch.toFixed(2)} Hz`);
-      }
-
-      if (recordingStatus === "recording") {
-        requestAnimationFrame(detect); // Continue detecting if still recording
-      }
-    };
-
-    detect(); // Start the first detection
-  };
-
-  const calculatePitch = (dataArray: Uint8Array, sampleRate: number): number | null => {
-    let maxVal = -Infinity;
-    let maxIndex = -1;
-
-    // Calculate the maximum value in the frequency domain (peak detection)
-    for (let i = 0; i < dataArray.length; i++) {
-      if (dataArray[i] > maxVal) {
-        maxVal = dataArray[i];
-        maxIndex = i;
-      }
-    }
-
-    // Calculate the pitch based on the index of the maximum value
-    if (maxIndex > 0 && maxIndex < dataArray.length - 1) {
-      const left = dataArray[maxIndex - 1];
-      const right = dataArray[maxIndex + 1];
-      const interpolation = (right - left) / (2 * (2 * maxVal - left - right));
-      const frequency = (maxIndex + interpolation) * sampleRate / analyser.current!.fftSize;
-      return frequency;
-    }
-
-    return null;
-  };
 
   const stopRecording = () => {
     if (!mediaRecorder.current) return;
