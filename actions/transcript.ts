@@ -55,7 +55,7 @@ async function transcript(prevState: any, formData: FormData) {
   console.log(`Messages: ${messages.map((m) => m.content).join("\n")}`);
 
   const completionResponse = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini",
     messages: messages,
     max_tokens: 128,
   });
