@@ -13,6 +13,7 @@ const initialState = {
   sender: "",
   response: "",
   id: "",
+  delayTimeString: "", // Initialize delayTimeString in the initial state
 };
 
 export type Message = {
@@ -27,6 +28,7 @@ export default function Home() {
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [displaySettings, setDisplaySettings] = useState(false);
+  const [delayTimeString, setDelayTimeString] = useState<string>(""); // State to store the delayTimeString
 
   // Responsible for updating the messages when the Server Action completes
   useEffect(() => {
@@ -39,6 +41,11 @@ export default function Home() {
         },
         ...messages,
       ]);
+
+      // Update delayTimeString whenever the state updates
+      if (state.delayTimeString) {
+        setDelayTimeString(state.delayTimeString);
+      }
     }
   }, [state]);
 
@@ -69,25 +76,30 @@ export default function Home() {
 
   return (
     <main className="bg-black h-screen overflow-y-scroll">
-      <header className="flex fixed top-0 justify-between text-white w-full p-5">
-
+      <header className="fixed top-0 justify-between text-white w-full p-5">
         <SettingsIcon
-          className="p-2 m-2 rounded-full cursor-pointer bg-purple-600 text-black transition-all ease-in-out duration-150 hover:bg-purple-700 hover:text-white"
+          className="p-2 m-2 rounded-full cursor-pointer bg-white text-black transition-all ease-in-out duration-150 hover:shadow-[0_0_30px_10px_rgba(255,255,255,0.9)]"
           onClick={() => setDisplaySettings(!displaySettings)}
           size={40}
         />
       </header>
 
-      <form action={formAction} className="flex flex-col bg-black">
-        <div className="flex-1 bg-gradient-to-b from-purple-500 to-black">
-          <Messages messages={messages} />
+      <form action={formAction} className="flex flex-col bg-black h-full">
+        <div className="flex-1 flex items-center justify-center w-200 h-200">
+          <div className="flex flex-col items-center ">
+            <Recorder uploadAudio={uploadAudio} />
+            {/* Display delayTimeString under the Recorder */}
+            {delayTimeString && (
+              <p className="text-white mt-4 text-lg">{delayTimeString}</p>
+            )}
+            <Messages messages={messages} />
+          </div>
         </div>
 
         <input type="file" name="audio" ref={fileRef} hidden />
         <button type="submit" hidden ref={submitButtonRef} />
 
         <div className="fixed bottom-0 w-full overflow-hidden bg-black rounded-t-3xl">
-          <Recorder uploadAudio={uploadAudio} />
           <div className="">
             <VoiceSynthesizer state={state} displaySettings={displaySettings} />
           </div>
