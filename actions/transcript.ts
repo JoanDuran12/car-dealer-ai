@@ -112,31 +112,6 @@ if there is a delay or silence from the user for about 4-5 seconds and there are
     response: response,
     id: id,
   };
-  // Firebase database
-  // async function saveToFirebase(
-  //   caller: string,
-  //   phone: string,
-  //   service: string
-  // ) {
-  //   try {
-  //     await setDoc(doc(db, "appointments", phone), {
-  //       caller,
-  //       phone,
-  //       service,
-  //       timestamp: new Date().toISOString(),
-  //     });
-  //     console.log("Appointment saved successfully!");
-  //   } catch (error) {
-  //     console.error("Error saving appointment:", error);
-  //   }
-  // }
-  // if (previousResponse.includes("can i have your name and phone number")) {
-  //   const extractedInfo = extractInfo(transcriptionText);
-  //   assistantMessage = `Your name is ${extractedInfo[0]} and your number is ${extractedInfo[1]}. Your appointment is booked for ${extractedInfo[2]}. Thank you for calling.`;
-
-  //   // Save to Firebase
-  //   await saveToFirebase(extractedInfo[0], extractedInfo[1], extractedInfo[2]);
-  // }
 
 }
 
