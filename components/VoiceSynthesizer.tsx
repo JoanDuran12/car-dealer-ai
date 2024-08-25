@@ -21,8 +21,10 @@ function VoiceSynthesizer({
   const [volume, setVolume] = useState(1);
 
   useEffect(() => {
-    setSynth(window.speechSynthesis);
-  }, [window]);
+    if (typeof window !== "undefined") {
+      setSynth(window.speechSynthesis);
+    }
+  }, []);
 
   useEffect(() => {
     if (!state.response || !synth) return;
@@ -39,18 +41,22 @@ function VoiceSynthesizer({
     return () => {
       synth.cancel();
     };
-  }, [state]);
+  }, [state, synth, voice, pitch, rate, volume]);
 
   useEffect(() => {
-    const voices = window.speechSynthesis.getVoices();
-    setVoice(voices[0]);
-  }, [window]);
+    if (typeof window !== "undefined") {
+      const voices = window.speechSynthesis.getVoices();
+      setVoice(voices[0]);
+    }
+  }, []);
 
   const handleVoiceChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const voices = window.speechSynthesis.getVoices();
-    const voice = voices.find((v) => v.name === e.target.value);
-    if (!voice) return;
-    setVoice(voice);
+    if (typeof window !== "undefined") {
+      const voices = window.speechSynthesis.getVoices();
+      const selectedVoice = voices.find((v) => v.name === e.target.value);
+      if (!selectedVoice) return;
+      setVoice(selectedVoice);
+    }
   };
 
   const handlePitchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +82,7 @@ function VoiceSynthesizer({
               onChange={handleVoiceChange}
               className="flex-1 bg-purple-500 text-white border border-gray-300 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-purple-500 dark:focus:border-purple-500"
             >
-              {window.speechSynthesis.getVoices().map((voice) => (
+              {synth?.getVoices().map((voice) => (
                 <option key={voice.name} value={voice.name}>
                   {voice.name}
                 </option>

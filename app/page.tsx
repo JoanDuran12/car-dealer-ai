@@ -70,7 +70,6 @@ export default function Home() {
   return (
     <main className="bg-black h-screen overflow-y-scroll">
       <header className="flex fixed top-0 justify-between text-white w-full p-5">
-
         <SettingsIcon
           className="p-2 m-2 rounded-full cursor-pointer bg-purple-600 text-black transition-all ease-in-out duration-150 hover:bg-purple-700 hover:text-white"
           onClick={() => setDisplaySettings(!displaySettings)}
